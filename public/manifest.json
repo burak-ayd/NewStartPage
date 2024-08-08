@@ -1,0 +1,31 @@
+{
+    "name": "New Start",
+    "author": "Burak Aydoğan",
+    "version": "0.1.0",
+    "description": "New Start Page for Chrome",
+    "permissions": [
+      "storage",
+      "tabs"
+    ],
+    "action": {
+      "default_icon": {
+        "16": "./icons/16.png",
+        "24": "./icons/24.png",
+        "32": "./icons/32.png",
+        "48": "./icons/48.png",
+        "128": "./icons/128.png"
+      },
+      "default_title": "New Start Page"
+    },
+    "icons": {
+      "16": "./icons/16.png",
+      "24": "./icons/24.png",
+      "32": "./icons/32.png",
+      "48": "./icons/48.png",
+      "128": "./icons/128.png"
+    },
+    "chrome_url_overrides": {
+      "newtab": "index.html"
+    },
+    "manifest_version": 3
+  }
