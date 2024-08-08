@@ -1,5 +1,7 @@
+const withMT = require("@material-tailwind/react/utils/withMT");
 /** @type {import('tailwindcss').Config} */
-export default {
+
+export default withMT({
     darkMode: "class",
     content: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],
     theme: {
@@ -36,5 +38,9 @@ export default {
             },
         },
     },
-    plugins: [],
-};
+    plugins: [
+        require("tailwindcss/plugin")(({ addVariant }) => {
+            addVariant("background", ":is(.background &)");
+        }),
+    ],
+});
