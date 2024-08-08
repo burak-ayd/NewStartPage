@@ -1,11 +1,10 @@
-import React from "react";
-import Item from "./item";
+import BookmarkItem from "./bookmarkItem";
 
 export default function MainPanel() {
     return (
         <div>
             <>
-                <Item />
+                <BookmarkItem />
             </>
         </div>
     );
