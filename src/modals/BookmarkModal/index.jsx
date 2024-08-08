@@ -1,7 +1,9 @@
-// BookmarkModal.js
 import PropTypes from "prop-types";
 import { useState } from "react";
 import classnames from "classnames";
+import { setBookmarks } from "~/stores/general/actions";
+import { useBookmarks } from "~/stores/general/hooks";
+import { v4 as uuidv4 } from "uuid";
 
 const BookmarkModal = () => {
     const [url, setUrl] = useState("");
@@ -9,42 +11,44 @@ const BookmarkModal = () => {
     const [error, setError] = useState(false);
     const [urlError, setUrlError] = useState(false);
 
-    const [bookmark, setBookmark] = useState([]);
+    var bookmarks = useBookmarks();
 
     const handleAddBookmark = (e) => {
         e.preventDefault();
-        // Verileri kontrol edebilir ve gerekli işlemleri gerçekleştirebilirsiniz
+
+        // URL ve isim kontrolü
         if (url && name) {
             setError(false);
             setUrlError(!validateUrl(url));
         } else {
             setError(true);
+            return;
         }
 
-        if (!urlError) {
-            setBookmark((prevBookmark) => [
-                ...prevBookmark,
-                {
-                    name: name,
-                    url: url,
-                    icon:
-                        "https://www.google.com/s2/favicons?sz=64&domain_url=" +
-                        url +
-                        "&sz=48",
-                },
-            ]);
+        if (!validateUrl(url)) {
+            setUrlError(true);
+            return;
+        }
+
+        if (url && name && validateUrl(url)) {
+            const newBookmark = {
+                id: uuidv4(),
+                name: name,
+                url: url,
+                icon:
+                    "https://www.google.com/s2/favicons?sz=64&domain_url=" +
+                    url +
+                    "&sz=48",
+            };
+
+            const updatedBookmarks = [...bookmarks, newBookmark]; // Global state'deki bookmarks ile yeni bookmark ekleniyor
+
+            setBookmarks(updatedBookmarks); // Global state güncelleniyor
 
             setName("");
             setUrl("");
         }
     };
-
-    console.log("Name: ", name);
-    console.log("URL: ", url);
-    console.log("Error: ", error);
-    console.log("Url Error: ", urlError);
-
-    console.log("Bookmark: ", bookmark);
 
     const validateUrl = (url) => {
         const regex =
