@@ -10,3 +10,5 @@ export const useSearchEngine = () =>
     useSelector((state) => state.general.searchEngine);
 export const useBackgroundImage = () =>
     useSelector((state) => state.general.background_image);
+export const useBookmarks = () =>
+    useSelector((state) => state.general.bookmarks);

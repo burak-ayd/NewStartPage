@@ -7,6 +7,7 @@ const initialState = {
     settingPage: "general",
     searchEngine: localStorage.getItem("searchEngine") || { value: "Google" },
     background_image: localStorage.getItem("background_image") || "",
+    bookmarks: JSON.parse(localStorage.getItem("bookmarks")) || [],
 };
 
 const general = createSlice({
@@ -39,6 +40,10 @@ const general = createSlice({
             localStorage.setItem("background_image", action.payload);
             localStorage.setItem("theme", "background");
         },
+        _setBookmarks(state, action) {
+            state.bookmarks = action.payload;
+            localStorage.setItem("bookmarks", JSON.stringify(action.payload));
+        },
     },
 });
 
@@ -49,5 +54,6 @@ export const {
     _setSettingPage,
     _setSearchEngine,
     _setBackgroundImage,
+    _setBookmarks,
 } = general.actions;
 export default general.reducer;
